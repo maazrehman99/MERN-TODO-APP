@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { ADD_NEW_TODO, GET_ALL_TODO, TOGGLE_TODO, UPDATE_TODO } from "./type";
+import {
+  ADD_NEW_TODO,
+  GET_ALL_TODO,
+  TOGGLE_TODO,
+  UPDATE_TODO,
+  DELETE_TODO,
+} from "./type";
 const API_URL = 'http://localhost:8000'
 
 
@@ -34,7 +40,7 @@ export const toggleTodo = (id) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    console.log("Error while getting todos:", error.message);
+    console.log("Error while toggle todos:", error.message);
   }
 }
 export const updateTodo = (id,data) => async (dispatch) => {
@@ -45,6 +51,17 @@ export const updateTodo = (id,data) => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    console.log("Error while getting todos:", error.message);
+    console.log("Error while updating todos:", error.message);
   }
 }
+export const deleteTodo = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`${API_URL}/todos/${id}`);
+    dispatch({
+      type: DELETE_TODO,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log("Error while DELETING todos:", error.message);
+  }
+};
