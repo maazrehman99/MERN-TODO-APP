@@ -1,39 +1,43 @@
-import todo from "../model/todo.js";
+import Todo from "../model/Todo.js";
 
-export const addTodo = async (req, res) => {
+export const addTodo = async (request, response) => {
   try {
-    const newTodo = await todo.create({
-      data: req.body.data,
+    const newTodo = await Todo.create({
+      data: request.body.data,
       createdAt: Date.now(),
     });
+
     await newTodo.save();
-    return res.status(200).json(newTodo);
-  } catch (err) {
-    return res.status(500).json(err.message);
+
+    return response.status(200).json(newTodo);
+  } catch (error) {
+    return response.status(500).json(error.message);
   }
 };
 
-export const getTodos = async (req, res) => {
+export const getAllTodos = async (request, response) => {
   try {
-    const todos = await todo.find({}).sort({ createdAt: -1 });
-    return res.status(200).json(todos);
-  } catch (err) {
-    return res.status(500).json(err.message);
+    const todos = await Todo.find({}).sort({ createdAt: -1 });
+
+    return response.status(200).json(todos);
+  } catch (error) {
+    return response.status(500).json(error.message);
   }
 };
-export const toggleTodoDone = async (req, res) => {
+
+export const toggleTodoDone = async (request, response) => {
   try {
-    const todoRef = await todo.findById(req.params.id);
-    const todo = await todoRef.findAndUpdate(
-      {
-        _id: req.params.id,
-      },
-      {
-        done: !todoRef.done,
-      }
+    const todoRef = await Todo.findById(request.params.id);
+
+    const todo = await Todo.findOneAndUpdate(
+      { _id: request.params.id },
+      { done: !todoRef.done }
     );
+
     await todo.save();
-  } catch (err) {
-    return res.status(500).json(err.message);
+
+    return response.status(200).json(todo);
+  } catch (error) {
+    return response.status(500).json(error.message);
   }
 };
