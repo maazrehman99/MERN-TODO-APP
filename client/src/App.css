@@ -38,6 +38,16 @@ input {
     margin: 4px;
     padding: 5px;
 }
+.edit-todo{
+    width: 85%;
+    font-size: 16px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+
+
+}
 article{
     display: grid;
 }

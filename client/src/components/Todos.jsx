@@ -1,8 +1,17 @@
 import React from "react";
-import { toggleTodo } from "../Redux/Actions";
+import { useState } from "react";
+import { toggleTodo, updateTodo } from "../Redux/Actions";
 import { useDispatch } from "react-redux";
 const Todos = ({ todo }) => {
   const dispatch = useDispatch();
+  const [editing,setEditing]=useState(false)
+  const [text,setText]=useState(todo.data)
+
+  const handleEditSubmit=(e)=>{
+    e.preventDefault()
+    setEditing(prevState=>!prevState)
+    dispatch(updateTodo(todo._id,text))
+  }
 
   return (
     <li
@@ -13,12 +22,23 @@ const Todos = ({ todo }) => {
         color: todo.done ? "red" : "black",
       }}
     >
-      <span>{todo.data}</span>
+      <span style={{display:editing? "none":""}} >  {todo.data}</span>
+       
+       <form style={{display:editing? "inline":"none"}} onSubmit={handleEditSubmit} >
+        <input type="text"
+        value={text}
+        className="edit-todo"
+        onChange={(e)=>{
+          setText(e.target.value)
+        }}
+        />
+       </form>
+
       <span>
-        <i className="fas fa-trash icon"></i>
+        <i className="fas fa-trash icon" ></i>
       </span>
       <span>
-        <i className="fas fa-pen icon"></i>
+        <i className="fas fa-pen icon" onClick={()=>setEditing(prevState=>!prevState)}></i>
       </span>
     </li>
   );
