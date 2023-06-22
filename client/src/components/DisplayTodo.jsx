@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { getTodos } from '../Redux/Actions';
 import { useDispatch, useSelector } from 'react-redux';
 import Todos from './Todos';
+import { Link } from 'react-router-dom';
 
 const DisplayTodo = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const DisplayTodo = () => {
 
   return (
     <article>
-      <h2>Todo List</h2>
+     <Link to={'/displaytodo'} > <h2>Active Todos</h2></Link>
       <ul>
         {todos.map((todo) => (
           <Todos  

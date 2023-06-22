@@ -2,6 +2,8 @@ import React from 'react'
 import { useState } from 'react'
 import { addNewTodo } from '../Redux/Actions'
 import { useDispatch } from 'react-redux'
+import Header from './Header.jsx/Header'
+import DisplayTodo from './DisplayTodo'
 
 const TodoForm = () => {
 
@@ -17,6 +19,7 @@ const TodoForm = () => {
   }
     return (
       <div>
+        <Header/>
         <form className="todo-form" onSubmit={onFormSubmit}>
           <input
             type="text"
@@ -26,6 +29,7 @@ const TodoForm = () => {
             value={text}
           />
         </form>
+        <DisplayTodo/>
       </div>
     );
 }
