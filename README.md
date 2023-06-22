@@ -1,4 +1,4 @@
-# MERN App Readme
+# MERN App 
 
 This readme file provides instructions on how to set up and run the MERN app. Please follow the steps below to get the app up and running on your local machine.
 
